@@ -1,4 +1,4 @@
-# Readme ImageScroller
+# README ImageScroller
 
 ### imageScroller.py
 Met imageScroller.py kan je van een bepaalde Ecosia pagina de afbeeldingen in een urls.txt bestand schrijven. De URL kan je als argument meegeven. Als er geen url als argument wordt meegegeven, zal de code "https://www.ecosia.org/images?q=plastic+bottle" als url gebruiken.
