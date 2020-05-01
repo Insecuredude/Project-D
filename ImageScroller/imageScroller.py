@@ -1,9 +1,9 @@
 #!/usr/bin/python3.8 -tt
-
+import argparse
 import urllib.request
 
-def Connect2Web():
-    page = urllib.request.urlopen("https://www.ecosia.org/images?q=plastic+bottle")
+def Connect2Web(url = "https://www.ecosia.org/images?q=plastic+bottle"):
+    page = urllib.request.urlopen(url)
     web_pg = str(page.read())
 
     content = str.split(web_pg)
@@ -44,7 +44,7 @@ def Connect2Web():
     
     print(len(urls))
 
-    f = open('urls.txt', "w")
+    f = open('urls.txt', "a")
     for url in urls:
         string = str(url) + "\n"
         f.write(string)
@@ -53,7 +53,15 @@ def Connect2Web():
 
 #Define a main() function that prints a litte greeting
 def main():
-  Connect2Web()
+    # construct the argument parse and parse the arguments
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-u", "--url", required=False,
+        help="url to website to get urls from")
+    args = vars(ap.parse_args())
+    if args["url"]:
+        Connect2Web(args["url"])
+    else:
+        Connect2Web()
 
 # This is the standard boilerplate that calls the maun function.
 if __name__ == '__main__':

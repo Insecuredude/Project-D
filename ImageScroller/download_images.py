@@ -1,5 +1,7 @@
 import argparse
 import os
+from os import listdir
+from os.path import isfile, join
 
 import requests
 from imutils import paths
@@ -16,6 +18,14 @@ args = vars(ap.parse_args())
 # total number of images downloaded thus far
 rows = open(args["urls"]).read().strip().split("\n")
 total = 0
+#check if there are already images in the output directory
+allfiles = [f for f in listdir(args["output"]) if isfile(join(args["output"], f))]
+for f in allfiles:
+	f = f[:-4]
+	if total < int(f):
+		total = int(f)
+total = total + 1
+print(total)
 
 # loop the URLs
 for url in rows:
