@@ -44,7 +44,7 @@ def Connect2Web(url = "https://www.ecosia.org/images?q=plastic+bottle"):
     
     print(len(urls))
 
-    f = open('urls.txt', "a")
+    f = open('urls.txt', "w")
     for url in urls:
         string = str(url) + "\n"
         f.write(string)
