@@ -21,31 +21,31 @@ De afkortingen van de mappen/labels hebben de volgende betekenis:
 bottles:
 
 * BIH_CB: "Bottle in Hand, Colored Background"
-    Afbeeldingen met een hand met een gekleurde achtergrond
+    - Afbeeldingen met een hand met een gekleurde achtergrond
 * BIH_TC: "Bottle in Hand, Trash Can"
-    Afbeeldingen met een hand met een afvalbak
+    - Afbeeldingen met een hand met een afvalbak
 * BIH_WB: "Bottle in Hand, White Background"
-    Afbeeldingen met een hand met een witte achtergrond
+    - Afbeeldingen met een hand met een witte achtergrond
 * MB_CB: "Multiple Bottles, Colored Background"
-    Meerdere flesjes met een gekleurde achtergrond
+    - Meerdere flesjes met een gekleurde achtergrond
 * MB_WB: "Multiple Bottles, White Background"
-    Meerdere flesjes met een witte achtergrond
+    - Meerdere flesjes met een witte achtergrond
 * SB_CB: "Single Bottle, Colored Background"
-    Een flesje met een gekleurde achtergrond
+    - Een flesje met een gekleurde achtergrond
 * SB_WB: "Single Bottle, White Background"
-    Een flesje met een witte achtergrond
+    - Een flesje met een witte achtergrond
 
 cans:
 
 * CIH_CB: "Can in Hand, Colored Background"
-    Afbeeldingen met een hand met een gekleurde achtergrond
+    - Afbeeldingen met een hand met een gekleurde achtergrond
 * CIH_WB: "Can in Hand, White Background"
-    Afbeeldingen met een hand met een witte achtergrond
+    - Afbeeldingen met een hand met een witte achtergrond
 * MC_CB: "Multiple Cans, Colored Background"
-    Meerdere blikjes met een gekleurde achtergrond
+    - Meerdere blikjes met een gekleurde achtergrond
 * MC_WB: "Multiple Cans, White Background"
-    Meerdere blikjes met een witte achtergrond
+    - Meerdere blikjes met een witte achtergrond
 * SC_CB: "Single Can, Colored Background"
-    Een blikje met een gekleurde achtergrond
+    - Een blikje met een gekleurde achtergrond
 * SC_WB: "Single Can, White Background"
-    Een blikje met een witte achtergrond
+    - Een blikje met een witte achtergrond
