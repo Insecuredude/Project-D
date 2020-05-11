@@ -20,32 +20,32 @@ De afkortingen van de mappen/labels hebben de volgende betekenis:
 
 bottles:
 
-* BIH_CB: "Bottle in Hand, Colored Background"
+* **BIH_CB**: "Bottle in Hand, Colored Background"
     - Afbeeldingen met een hand met een gekleurde achtergrond
-* BIH_TC: "Bottle in Hand, Trash Can"
+* **BIH_TC**: "Bottle in Hand, Trash Can"
     - Afbeeldingen met een hand met een afvalbak
-* BIH_WB: "Bottle in Hand, White Background"
+* **BIH_WB**: "Bottle in Hand, White Background"
     - Afbeeldingen met een hand met een witte achtergrond
-* MB_CB: "Multiple Bottles, Colored Background"
+* **MB_CB**: "Multiple Bottles, Colored Background"
     - Meerdere flesjes met een gekleurde achtergrond
-* MB_WB: "Multiple Bottles, White Background"
+* **MB_WB**: "Multiple Bottles, White Background"
     - Meerdere flesjes met een witte achtergrond
-* SB_CB: "Single Bottle, Colored Background"
+* **SB_CB**: "Single Bottle, Colored Background"
     - Een flesje met een gekleurde achtergrond
-* SB_WB: "Single Bottle, White Background"
+* **SB_WB**: "Single Bottle, White Background"
     - Een flesje met een witte achtergrond
 
 cans:
 
-* CIH_CB: "Can in Hand, Colored Background"
+* **CIH_CB**: "Can in Hand, Colored Background"
     - Afbeeldingen met een hand met een gekleurde achtergrond
-* CIH_WB: "Can in Hand, White Background"
+* **CIH_WB**: "Can in Hand, White Background"
     - Afbeeldingen met een hand met een witte achtergrond
-* MC_CB: "Multiple Cans, Colored Background"
+* **MC_CB**: "Multiple Cans, Colored Background"
     - Meerdere blikjes met een gekleurde achtergrond
-* MC_WB: "Multiple Cans, White Background"
+* **MC_WB**: "Multiple Cans, White Background"
     - Meerdere blikjes met een witte achtergrond
-* SC_CB: "Single Can, Colored Background"
+* **SC_CB**: "Single Can, Colored Background"
     - Een blikje met een gekleurde achtergrond
-* SC_WB: "Single Can, White Background"
+* **SC_WB**: "Single Can, White Background"
     - Een blikje met een witte achtergrond
