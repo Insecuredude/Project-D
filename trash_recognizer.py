@@ -1,4 +1,9 @@
 import tensorflow as tf
+
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Conv2D, Flatten, Dropout, MaxPooling2D
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 import IPython.display as display
 from PIL import Image
@@ -15,6 +20,8 @@ BATCH_SIZE = 32
 default_timeit_steps = 1000
 
 def main():
+    global IMG_HEIGHT,IMG_WIDTH
+
     labeled_ds = get_dataset()
     for image, label in labeled_ds.take(1):
         print("Image shape: ", image.numpy().shape)
@@ -24,7 +31,21 @@ def main():
 
     image_batch, label_batch = next(iter(train_ds))
 
-    show_batch(image_batch.numpy(), label_batch.numpy())
+    model = Sequential([
+        Conv2D(16, 3, padding='same', activation='relu', input_shape=(IMG_HEIGHT, IMG_WIDTH ,3)),
+        MaxPooling2D(),
+        Conv2D(32, 3, padding='same', activation='relu'),
+        MaxPooling2D(),
+        Conv2D(64, 3, padding='same', activation='relu'),
+        MaxPooling2D(),
+        Flatten(),
+        Dense(512, activation='relu'),
+        Dense(1)
+    ])
+    model.compile(optimizer='adam',
+              loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
+              metrics=['accuracy'])
+    print(model.summary())
 
 
 def get_dataset():
@@ -32,16 +53,21 @@ def get_dataset():
     #Downloading the dataset from github
     data_dir = tf.keras.utils.get_file(origin="https://github.com/Insecuredude/Project-D/raw/Guus/ImageScroller/trash_images.tar", fname="trash_images", untar=True)
     data_dir = pathlib.Path(data_dir)
-    image_count = len(list(data_dir.glob('*/*.jpg')))
-    print("number of images: ", image_count)
-    CLASS_NAMES = np.array([item.name for item in data_dir.glob('*') if item.name != "LICENSE.txt"])
+    train_dir = os.path.join(data_dir,'training')
+    validation_dir = os.path.join(data_dir, 'validation')
+
+    image_count_training = len(os.listdir(train_dir))
+    image_count_validation = len(list(validation_dir.glob('*/*.jpg')))
+    print("number of images in training: ", image_count_training)
+    print("number of images in validation: ", image_count_validation)
+    CLASS_NAMES = np.array([item.name for item in train_dir.glob('*') if item.name != "LICENSE.txt"])
     print("labels: ",CLASS_NAMES)
 
-    list_ds = tf.data.Dataset.list_files(str(data_dir/'*/*'))
+    train_ds = tf.data.Dataset.list_files(str(train_dir/'*/*'))
     # Set `num_parallel_calls` so multiple images are loaded/processed in parallel.
-    labeled_ds = list_ds.map(process_path, num_parallel_calls=AUTOTUNE)
+    labeled_training_ds = train_ds.map(process_path, num_parallel_calls=AUTOTUNE)
 
-    return labeled_ds
+    return labeled_training_ds
 
 def get_label(file_path):
     global CLASS_NAMES
