@@ -56,14 +56,25 @@ def get_dataset():
     train_dir = os.path.join(data_dir,'training')
     validation_dir = os.path.join(data_dir, 'validation')
 
-    image_count_training = len(os.listdir(train_dir))
-    image_count_validation = len(list(validation_dir.glob('*/*.jpg')))
-    print("number of images in training: ", image_count_training)
-    print("number of images in validation: ", image_count_validation)
-    CLASS_NAMES = np.array([item.name for item in train_dir.glob('*') if item.name != "LICENSE.txt"])
-    print("labels: ",CLASS_NAMES)
+    image_count_bottles_training = len(os.listdir(os.path.join(train_dir,'bottles')))
+    image_count_cans_training = len(os.listdir(os.path.join(train_dir,'cans')))
+    image_count_training = image_count_bottles_training + image_count_cans_training
+    image_count_bottles_validation = len(os.listdir(os.path.join(validation_dir,'bottles')))
+    image_count_cans_validation = len(os.listdir(os.path.join(validation_dir,'cans')))
+    image_count_validation = image_count_bottles_validation + image_count_cans_validation
 
-    train_ds = tf.data.Dataset.list_files(str(train_dir/'*/*'))
+    print("[INFO] number of bottles in training: ", image_count_bottles_training)
+    print("[INFO] number of cans in training: ", image_count_cans_training)
+    print("[INFO] number of images in training: ", image_count_training)
+    print("[INFO] number of bottles in validation: ", image_count_bottles_validation)
+    print("[INFO] number of cans in validation: ", image_count_cans_validation)
+    print("[INFO] number of images in validation: ", image_count_validation)
+
+    CLASS_NAMES = np.array([item for item in os.listdir(train_dir)])
+
+    print("[INFO] labels: ",CLASS_NAMES)
+
+    train_ds = tf.data.Dataset.list_files(os.path.join(train_dir,'*/*'))
     # Set `num_parallel_calls` so multiple images are loaded/processed in parallel.
     labeled_training_ds = train_ds.map(process_path, num_parallel_calls=AUTOTUNE)
 
