@@ -31,6 +31,8 @@ def main():
 
     image_batch, label_batch = next(iter(train_ds))
 
+    show_batch(image_batch.numpy(), label_batch.numpy())
+
     model = Sequential([
         Conv2D(16, 3, padding='same', activation='relu', input_shape=(IMG_HEIGHT, IMG_WIDTH ,3)),
         MaxPooling2D(),
