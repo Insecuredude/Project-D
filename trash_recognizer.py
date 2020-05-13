@@ -27,7 +27,7 @@ def main():
 
     sample_training_images, _ = next(train_ds)
 
-    show_batch(sample_training_images[:10])
+    show_batch(sample_training_images[:5])
 
     model = Sequential([
         Conv2D(16, 3, padding='same', activation='relu', input_shape=(IMG_HEIGHT, IMG_WIDTH ,3)),
@@ -54,6 +54,8 @@ def main():
         validation_data= validation_ds,
         validation_steps= image_count_validation
     )
+
+    visualize_history(history)
 
 def get_dataset():
     global CLASS_NAMES, BATCH_SIZE, IMG_HEIGHT, IMG_WIDTH
@@ -105,6 +107,32 @@ def show_batch(images_arr):
         ax.axis('off')
     plt.tight_layout()
     plt.show()
+
+def visualize_history(history):
+    global EPOCHS
+
+    acc = history.history['accuracy']
+    val_acc = history.history['val_accuracy']
+
+    loss=history.history['loss']
+    val_loss=history.history['val_loss']
+
+    epochs_range = range(EPOCHS)
+
+    plt.figure(figsize=(8, 8))
+    plt.subplot(1, 2, 1)
+    plt.plot(epochs_range, acc, label='Training Accuracy')
+    plt.plot(epochs_range, val_acc, label='Validation Accuracy')
+    plt.legend(loc='lower right')
+    plt.title('Training and Validation Accuracy')
+
+    plt.subplot(1, 2, 2)
+    plt.plot(epochs_range, loss, label='Training Loss')
+    plt.plot(epochs_range, val_loss, label='Validation Loss')
+    plt.legend(loc='upper right')
+    plt.title('Training and Validation Loss')
+    plt.show()
+
 
 if __name__ == '__main__':
     main()
