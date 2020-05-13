@@ -49,10 +49,10 @@ def main():
 
     history = model.fit_generator(
         train_ds,
-        steps_per_epoch= image_count_training,
+        steps_per_epoch= image_count_training // BATCH_SIZE,
         epochs= EPOCHS,
         validation_data= validation_ds,
-        validation_steps= image_count_validation
+        validation_steps= image_count_validation // BATCH_SIZE
     )
 
     visualize_history(history)
