@@ -8,8 +8,10 @@ import random
 import argparse
 
 def MoveImages(per = 0.2):
-    train_dir = os.path.join('trash_images_01','training')
-    validation_dir = os.path.join('trash_images_01','validation')
+    data_set_to_devide = 'trash_images_01'
+
+    train_dir = os.path.join(data_set_to_devide,'training')
+    validation_dir = os.path.join(data_set_to_devide,'validation')
 
     bottles_training = os.listdir(os.path.join(train_dir,'bottles'))
     cans_training = os.listdir(os.path.join(train_dir,'cans'))
