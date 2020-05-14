@@ -17,7 +17,7 @@ global CLASS_NAMES
 IMG_WIDTH = 224
 IMG_HEIGHT = 224
 BATCH_SIZE = 32
-EPOCHS = 10
+EPOCHS = 20
 default_timeit_steps = 1000
 
 def main():
@@ -47,12 +47,41 @@ def main():
               
     print(model.summary())
 
-    history = model.fit_generator(
+    model_dropout = Sequential([
+        Conv2D(16, 3, padding='same', activation='relu', 
+            input_shape=(IMG_HEIGHT, IMG_WIDTH ,3)),
+        MaxPooling2D(),
+        Dropout(0.2),
+        Conv2D(32, 3, padding='same', activation='relu'),
+        MaxPooling2D(),
+        Conv2D(64, 3, padding='same', activation='relu'),
+        MaxPooling2D(),
+        Dropout(0.2),
+        Flatten(),
+        Dense(512, activation='relu'),
+        Dense(1)
+    ])
+
+    model_dropout.compile(optimizer='adam',
+                  loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
+                  metrics=['accuracy'])
+
+    model_dropout.summary()
+
+    # history = model.fit(
+    #     train_ds,
+    #     steps_per_epoch= image_count_training // BATCH_SIZE,
+    #     epochs= EPOCHS,
+    #     validation_data= validation_ds,
+    #     validation_steps= image_count_validation // BATCH_SIZE
+    # )
+
+    history = model_dropout.fit(
         train_ds,
         steps_per_epoch= image_count_training // BATCH_SIZE,
         epochs= EPOCHS,
-        validation_data= validation_ds,
-        validation_steps= image_count_validation // BATCH_SIZE
+        validation_data=validation_ds,
+        validation_steps=image_count_validation // BATCH_SIZE
     )
 
     visualize_history(history)
@@ -83,7 +112,14 @@ def get_dataset():
 
     print("[INFO] labels: ",CLASS_NAMES)
 
-    train_image_generator = ImageDataGenerator(rescale=1./255) # Generator for our training data
+    train_image_generator = ImageDataGenerator(
+                                rescale=1./255,
+                                horizontal_flip = True,
+                                rotation_range= 45,
+                                width_shift_range=15,
+                                height_shift_range=15,
+                                zoom_range=0.5
+                                ) # Generator for our training data
     validation_image_generator = ImageDataGenerator(rescale=1./255) # Generator for our validation data
 
     train_data_gen = train_image_generator.flow_from_directory(batch_size=BATCH_SIZE,
