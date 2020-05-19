@@ -29,6 +29,9 @@ def main():
 
     show_batch(sample_training_images[:5])
 
+    # To use the saved model use this line to get the model again. -> Comment out the model = sequential part otherwise it will just remake the model.
+    # model = tf.keras.models.load_model("trash_recognizer_save_1.h5")
+
     model = Sequential([
         Conv2D(16, 3, padding='same', activation='relu', input_shape=(IMG_HEIGHT, IMG_WIDTH ,3)),
         MaxPooling2D(),
@@ -76,6 +79,11 @@ def main():
     #     validation_steps= image_count_validation // BATCH_SIZE
     # )
 
+    # Create a callback that saves the model's weights. This is saving the weights inbetween de epoch runs.
+    cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath="training_path_1",
+                                                 save_weights_only=True,
+                                                 verbose=1)
+
     history = model_dropout.fit(
         train_ds,
         steps_per_epoch= image_count_training // BATCH_SIZE,
@@ -83,6 +91,8 @@ def main():
         validation_data=validation_ds,
         validation_steps=image_count_validation // BATCH_SIZE
     )
+    # Saves the model under the name in the brackets. Keras uses h5 for their models so need to save that.
+    model.save("trash_recognizer_save_1.h5")
 
     visualize_history(history)
 
@@ -161,6 +171,8 @@ def visualize_history(history):
     plt.plot(epochs_range, val_acc, label='Validation Accuracy')
     plt.legend(loc='lower right')
     plt.title('Training and Validation Accuracy')
+    # Saves plt figure under the name in the brackets.
+    plt.savefig("Training_Accuracy_9")
 
     plt.subplot(1, 2, 2)
     plt.plot(epochs_range, loss, label='Training Loss')
@@ -169,6 +181,8 @@ def visualize_history(history):
     plt.title('Training and Validation Loss')
     plt.show()
 
+#   Saves plt figure under the name in the brackets.
+    plt.savefig("Training_Loss_9")
 
 if __name__ == '__main__':
     main()
