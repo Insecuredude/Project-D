@@ -146,7 +146,8 @@ def get_dataset():
     return train_data_gen, val_data_gen, image_count_training, image_count_validation
 
 def show_batch(images_arr):
-    fig, axes = plt.subplots(1, 5, figsize=(20,20))
+    fig,
+    axes = plt.subplots(1, 5, figsize=(20,20))
     axes = axes.flatten()
     for img, ax in zip( images_arr, axes):
         ax.imshow(img)
