@@ -92,7 +92,7 @@ def main():
         validation_steps=image_count_validation // BATCH_SIZE
     )
     # Saves the model under the name in the brackets. Keras uses h5 for their models so need to save that.
-    model.save("trash_recognizer_save_1.h5")
+    model_dropout.save("trash_recognizer_model")
 
     visualize_history(history)
 
@@ -146,8 +146,7 @@ def get_dataset():
     return train_data_gen, val_data_gen, image_count_training, image_count_validation
 
 def show_batch(images_arr):
-    fig,
-    axes = plt.subplots(1, 5, figsize=(20,20))
+    fig, axes = plt.subplots(1, 5, figsize=(20,20))
     axes = axes.flatten()
     for img, ax in zip( images_arr, axes):
         ax.imshow(img)
