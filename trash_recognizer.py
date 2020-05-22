@@ -64,8 +64,8 @@ def main():
         Dense(512, activation='relu'),
         Dense(1)
     ])
-
-    model_dropout.compile(optimizer='adam',
+    base_learning_rate = 0.0001
+    model_dropout.compile(optimizer=tf.keras.optimizers.RMSprop(lr=base_learning_rate),
                   loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
                   metrics=['accuracy'])
 

@@ -8,7 +8,9 @@ from tensorflow import keras
 from PIL import Image
 from IPython.display import display
 import matplotlib.pyplot as plt
+import math
 
+global CLASS_NAMES
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 IMG_WIDTH = 224
 IMG_HEIGHT = 224
@@ -17,11 +19,12 @@ BATCH_SIZE = 32
 save_path = 'trash_recognizer_model'
 
 def main():
-    global save_path
+    global save_path, CLASS_NAMES
 
     labels_path = tf.keras.utils.get_file(
         'labels.txt',
-        '')
+        'https://raw.githubusercontent.com/Insecuredude/Project-D/Guus/labels.txt')
+    CLASS_NAMES = np.array(open(labels_path).read().splitlines())
 
     loaded_model = keras.models.load_model(save_path)
     print(list(loaded_model.signatures.keys()))
@@ -41,11 +44,19 @@ def main():
 
     test_ds = prepare_for_testing(test_ds)
     
+    output = { 0: 'bottle', 1: 'can'}
     it = iter(test_ds)
     for i in range(3):
         batch = next(it)
         result = loaded_model(batch)
-        print(result)
+        decoded = []
+        for r in result:
+            r = tf.nn.relu(r)
+            print('raw result ->', r)
+            v = tf.get_static_value(r)
+            decoded.append(output[int(v)])
+        print("result:\n", decoded)
+        show_batch(batch, decoded)
 
         
 
