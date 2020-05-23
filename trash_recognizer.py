@@ -1,5 +1,5 @@
 import tensorflow as tf
-
+from tensorflow import keras
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, Flatten, Dropout, MaxPooling2D
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
@@ -31,6 +31,8 @@ def main():
 
     # To use the saved model use this line to get the model again. -> Comment out the model = sequential part otherwise it will just remake the model.
     # model = tf.keras.models.load_model("trash_recognizer_save_1.h5")
+
+
 
     model = Sequential([
         Conv2D(16, 3, padding='same', activation='relu', input_shape=(IMG_HEIGHT, IMG_WIDTH ,3)),
@@ -94,6 +96,12 @@ def main():
     # Saves the model under the name in the brackets. Keras uses h5 for their models so need to save that.
     model_dropout.save("trash_recognizer_model")
 
+    # converts keras model to a tflite model
+    converter = tf.lite.TFLiteConverter.from_keras_model(model)
+    tf_Lite_Model = converter.convert();
+
+    # Writes the tflite model to the disk to be used as a file
+    # open("projectdModel1.tflite", "wb").write(tf_Lite_Model)
     visualize_history(history)
 
 def get_dataset():

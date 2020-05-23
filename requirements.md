@@ -6,9 +6,16 @@
 - Opencv-python
 - Pillow
 - pyyaml h5py
+- IPython
 
-
-To install these with pip use:
-"pip install (name_of_libray)"
+---
+- pip install tensforflow
+- pip install numpy
+- pip install matplotlib
+- pip install Imutils
+- pip install Opencv-python
+- pip install Pillow
+- pip install pyyaml h5py
+- pip install IPython
 
 
