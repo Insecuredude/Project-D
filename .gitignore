@@ -4,3 +4,4 @@
 *.png
 *.png
 trash_recognizer_model/variables/variables.data-00000-of-00001
+*.tflite
