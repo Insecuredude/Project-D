@@ -8,4 +8,3 @@ tflite_model = converter.convert()
 
 # Writes the tflite model to the disk to be used as a file
 open("model.tflite", "wb").write(tflite_model)
-
