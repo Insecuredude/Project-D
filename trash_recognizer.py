@@ -97,7 +97,7 @@ def main():
     model_dropout.save("trash_recognizer_model")
 
     # converts keras model to a tflite model
-    converter = tf.lite.TFLiteConverter.from_keras_model(model)
+    converter = tf.lite.TFLiteConverter.from_keras_model(model_dropout)
     tf_Lite_Model = converter.convert()
 
     # Writes the tflite model to the disk to be used as a file
