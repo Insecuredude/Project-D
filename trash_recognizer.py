@@ -64,10 +64,10 @@ def main():
         Dropout(0.2),
         Flatten(),
         Dense(512, activation='relu'),
-        Dense(1)
+        Dense(2, activation="softmax")
     ])
     base_learning_rate = 0.0001
-    model_dropout.compile(optimizer=tf.keras.optimizers.RMSprop(lr=base_learning_rate),
+    model_dropout.compile(optimizer=tf.keras.optimizers.RMSprop(learning_rate=base_learning_rate),
                   loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
                   metrics=['accuracy'])
 
@@ -98,10 +98,16 @@ def main():
 
     # converts keras model to a tflite model
     converter = tf.lite.TFLiteConverter.from_keras_model(model)
-    tf_Lite_Model = converter.convert();
+    tf_Lite_Model = converter.convert()
 
     # Writes the tflite model to the disk to be used as a file
-    # open("projectdModel1.tflite", "wb").write(tf_Lite_Model)
+    open("model.tflite", "wb").write(tf_Lite_Model)
+
+    labels = '\n'.join(sorted(CLASS_NAMES))
+
+    with open('labels.txt', 'w') as f:
+        f.write(labels)
+
     visualize_history(history)
 
 def get_dataset():
@@ -143,13 +149,13 @@ def get_dataset():
     train_data_gen = train_image_generator.flow_from_directory(batch_size=BATCH_SIZE,
                                                            directory=train_dir,
                                                            shuffle=True,
-                                                           target_size=(IMG_HEIGHT, IMG_WIDTH),
-                                                           class_mode='binary')
+                                                           target_size=(IMG_HEIGHT, IMG_WIDTH)
+                                                           )
 
     val_data_gen = validation_image_generator.flow_from_directory(batch_size=BATCH_SIZE,
                                                               directory=validation_dir,
-                                                              target_size=(IMG_HEIGHT, IMG_WIDTH),
-                                                              class_mode='binary')
+                                                              target_size=(IMG_HEIGHT, IMG_WIDTH)
+                                                              )
     
     return train_data_gen, val_data_gen, image_count_training, image_count_validation
 
