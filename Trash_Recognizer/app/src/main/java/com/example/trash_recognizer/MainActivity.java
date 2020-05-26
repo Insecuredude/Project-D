@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -40,43 +41,52 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, 100);
-        }
-        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = getIntent();
+//                finish();
+                startActivity(intent);
+            }
+        }else if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                Intent intent = getIntent();
+                startActivity(intent);
+//                finish();
+
+            }
+        }else{
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+
+            surfaceView = findViewById(R.id.surfaceView);
+            button = findViewById(R.id.button);
+
+            surfaceHolder = surfaceView.getHolder();
+            surfaceHolder.addCallback(this);
+            surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    camera.takePicture(null, null, pictureCallback);
+                }
+            });
+
+            pictureCallback = new android.hardware.Camera.PictureCallback() {
+                @Override
+                public void onPictureTaken(byte[] bytes, android.hardware.Camera camera) {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    Bitmap cbmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), null, true);
+
+                    String pathFileName = currentDateFormat();
+                    storePhotoToStorage(cbmp, pathFileName);
+
+                    Toast.makeText(getApplicationContext(), "Done!", Toast.LENGTH_LONG).show();
+
+                    MainActivity.this.camera.startPreview();
+                }
+            };
         }
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        surfaceView = findViewById(R.id.surfaceView);
-        button = findViewById(R.id.button);
-
-        surfaceHolder = surfaceView.getHolder();
-        surfaceHolder.addCallback(this);
-        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                camera.takePicture(null, null, pictureCallback);
-            }
-        });
-
-        pictureCallback = new android.hardware.Camera.PictureCallback() {
-            @Override
-            public void onPictureTaken(byte[] bytes, android.hardware.Camera camera) {
-                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                Bitmap cbmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), null, true);
-
-                String pathFileName = currentDateFormat();
-                storePhotoToStorage(cbmp, pathFileName);
-
-                Toast.makeText(getApplicationContext(), "Done!", Toast.LENGTH_LONG).show();
-
-                MainActivity.this.camera.startPreview();
-
-            }
-        };
     }
 
     private void storePhotoToStorage(Bitmap cbmp, String pathFileName) {
