@@ -12,21 +12,31 @@ import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.media.Image;
+import android.media.ImageReader;
+import kotlin.collections.*;
+import kotlin.jvm.JvmDefault;
+
+import com.example.trash_recognizer.Camera2BasicFragment;
 
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback {
 
@@ -35,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private Camera camera;
     private SurfaceHolder surfaceHolder;
     private android.hardware.Camera.PictureCallback pictureCallback;
+    private int INPUT_SIZE=224;
+    private int PIXEL_SIZE =3;
+    private  int intValue = INPUT_SIZE*INPUT_SIZE;
+    public Camera2BasicFragment camera2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +89,17 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
             pictureCallback = new android.hardware.Camera.PictureCallback() {
                 @Override
                 public void onPictureTaken(byte[] bytes, android.hardware.Camera camera) {
+                    camera2.getOnImageAvailableListener();
+
                     Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     Bitmap cbmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), null, true);
 
-                    String pathFileName = currentDateFormat();
-                    storePhotoToStorage(cbmp, pathFileName);
+                    cbmp.createScaledBitmap(cbmp, INPUT_SIZE,INPUT_SIZE, false);
+                    ByteBuffer byteBuffer = ByteBuffer.allocateDirect(INPUT_SIZE*INPUT_SIZE*PIXEL_SIZE);
+                    byteBuffer.order(ByteOrder.nativeOrder());
+                    ByteBuffer convertedBytes = camera2.addPixelValue(byteBuffer,intValue);
+
+
 
                     Toast.makeText(getApplicationContext(), "Done!", Toast.LENGTH_LONG).show();
 
@@ -142,4 +162,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         camera.release();
         camera = null;
     }
+
+
+
 }
