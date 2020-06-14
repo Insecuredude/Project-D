@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:fontFamily="arial"
-        android:textSize="19dp"
+        android:textSize="18dp"
         android:text="Welkom bij de trash identifier app!\n\n Met deze app hopen wij jou te kunnen helpen met het scheiden van jouw afval. Let op dat deze app op dit moment alleen nog werkt met plastic flesjes en drank- en conservenblikken.\n\n\n Hoe werkt het?\n\n-Zet een leeg flesje of een blik neer Op een goed verlichte plek.\n-Focus op het object met de camera\n\nBinnen de seconde verteld de app wat het afval is dat je neer hebt gezet en waar je het moet scheiden."
         android:textAlignment="center" />
 
