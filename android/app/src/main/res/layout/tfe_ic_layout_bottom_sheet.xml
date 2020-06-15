@@ -15,18 +15,18 @@
     <LinearLayout
         android:id="@+id/gesture_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="220dp"
         android:orientation="vertical"
         android:paddingTop="10dp"
         android:paddingBottom="10dp">
 
         <ImageView
-            android:visibility="gone"
             android:id="@+id/bottom_sheet_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/icn_chevron_up" />
+            android:src="@drawable/icn_chevron_up"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,13 +41,13 @@
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/detected_item_value"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="right"-->
-<!--                android:textColor="@android:color/black"-->
-<!--                android:textSize="16sp" />-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/detected_item_value"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:gravity="right"-->
+            <!--                android:textColor="@android:color/black"-->
+            <!--                android:textSize="16sp" />-->
 
         </LinearLayout>
 
@@ -64,13 +64,13 @@
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/detected_item1_value"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="right"-->
-<!--                android:textColor="@android:color/darker_gray"-->
-<!--                android:textSize="12sp" />-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/detected_item1_value"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:gravity="right"-->
+            <!--                android:textColor="@android:color/darker_gray"-->
+            <!--                android:textSize="12sp" />-->
 
         </LinearLayout>
 
@@ -87,22 +87,22 @@
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/detected_item2_value"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="right"-->
-<!--                android:textColor="@android:color/darker_gray"-->
-<!--                android:textSize="12sp" />-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/detected_item2_value"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:gravity="right"-->
+            <!--                android:textColor="@android:color/darker_gray"-->
+            <!--                android:textSize="12sp" />-->
 
         </LinearLayout>
 
         <View
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginTop="8dp"
-            android:background="@android:color/darker_gray" />
+            android:background="@android:color/darker_gray"
+            android:visibility="gone" />
     </LinearLayout>
 
 <!--    <LinearLayout-->
