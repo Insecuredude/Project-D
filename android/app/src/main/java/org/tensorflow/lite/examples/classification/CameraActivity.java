@@ -38,6 +38,9 @@ import android.os.Trace;
 import androidx.annotation.NonNull;
 import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Size;
 import android.view.Surface;
 import android.view.View;
@@ -537,7 +540,11 @@ public abstract class CameraActivity extends AppCompatActivity
     if (results != null && results.size() >= 3) {
       Recognition recognition = results.get(0);
       if (recognition != null) {
-        if (recognition.getTitle() != null) recognitionTextView.setText(recognition.getTitle());
+        if (recognition.getTitle() != null) {
+          SpannableString content = new SpannableString(recognition.getTitle());
+          content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+          recognitionTextView.setText(content);
+        }
 //        if (recognition.getConfidence() != null)
 //          recognitionValueTextView.setText(
 //              String.format("%.2f", (100 * recognition.getConfidence())) + "%");
